@@ -26,10 +26,15 @@ def fio():
     return
 
 def phone_format():
-    pass
+    phone_search = re.compile(r'(\+7|8)?\s*\(?(\d{3})\)?\s*\D?(\d{3})[-\s+]?(\d{2})-?(\d{2})((\s)?\(?(доб.)?\s?(\d+)\)?)?')
+    phone_zamena = r'+7 (\2) \3-\4-\5\7\8\9'
+    for stolb in contacts_list[1:]:
+        stolb[5] = phone_search.sub(phone_zamena, stolb[5])
+    return
 
 if __name__ == '__main__':
     fio()
+    phone_format()
     print(contacts_list)
 
 

@@ -1,31 +1,18 @@
-import re
-import csv
-
-with open("phonebook_raw.csv", 'r', encoding='utf-8') as f:
-    rows = csv.reader(f, delimiter=",")
-    contacts_list = list(rows)
-    new_list = []
-
-#
-# for i in contacts_list[1:]:
-#     lfs = re.findall('[А-Я][а-я]+'," ".join(i))
-#     print(lfs[0:3])
-
-def fio():
-    serch_fio = r'([А-Я][а-я]+)'
-    zamena_fio = r' \1'
+def names_moving():
+    name_pattern = r'([А-Я])'
+    name_substitution = r' \1'
     for column in contacts_list[1:]:
         line = column[0] + column[1] + column[2]
-        if len((re.sub(serch_fio, zamena_fio, line).split())) == 3:
-            column[0] = re.sub(serch_fio, zamena_fio, line).split()[0]
-            column[1] = re.sub(serch_fio, zamena_fio, line).split()[1]
-            column[2] = re.sub(serch_fio, zamena_fio, line).split()[2]
-        elif len((re.sub(serch_fio, zamena_fio, line).split())) == 2:
-            column[0] = re.sub(serch_fio, zamena_fio, line).split()[0]
-            column[1] = re.sub(serch_fio, zamena_fio, line).split()[1]
+        if len((re.sub(name_pattern, name_substitution, line).split())) == 3:
+            column[0] = re.sub(name_pattern, name_substitution, line).split()[0]
+            column[1] = re.sub(name_pattern, name_substitution, line).split()[1]
+            column[2] = re.sub(name_pattern, name_substitution, line).split()[2]
+        elif len((re.sub(name_pattern, name_substitution, line).split())) == 2:
+            column[0] = re.sub(name_pattern, name_substitution, line).split()[0]
+            column[1] = re.sub(name_pattern, name_substitution, line).split()[1]
             column[2] = ''
-        elif len((re.sub(serch_fio, zamena_fio, line).split())) == 1:
-            column[0] = re.sub(serch_fio, zamena_fio, line).split()[0]
+        elif len((re.sub(name_pattern, name_substitution, line).split())) == 1:
+            column[0] = re.sub(name_pattern, name_substitution, line).split()[0]
             column[1] = ''
             column[2] = ''
     return
@@ -66,7 +53,7 @@ def duplicates_combining():
 
 
 if __name__ == '__main__':
-    fio()
+    names_moving()
     phone_number_formatting()
     duplicates_combining()
 

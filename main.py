@@ -51,6 +51,11 @@ def duble_search():
                 if stolb[6] == '':
                     stolb[6] = people[6]
 
+    for contact in contacts_list:
+        if contact not in new_list:
+            new_list.append(contact)
+    return new_list
+
 
 
 if __name__ == '__main__':

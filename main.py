@@ -11,7 +11,7 @@ new_list=[]
 #      print(lfs[0:2])
 
 def fio():
-    serch_fio = r'([А-Я][а-я]+)'
+    serch_fio = r'([А-Я])'
     zamena_fio = r' \1'
     for stolb in contacts_list[1:]:
         stroka = stolb[0] + stolb[1] + stolb[2]
@@ -23,6 +23,10 @@ def fio():
             stolb[0] = re.sub(serch_fio, zamena_fio, stroka).split()[0]
             stolb[1] = re.sub(serch_fio, zamena_fio, stroka).split()[1]
             stolb[2] = ''
+        elif len((re.sub(serch_fio, zamena_fio, stroka).split())) == 1:
+            stolb[0] = re.sub(serch_fio, zamena_fio, stroka).split()[0]
+            stolb[1] = ''
+            stolb[2] = ''
     return
 
 def phone_format():
@@ -30,6 +34,7 @@ def phone_format():
     phone_zamena = r'+7 (\2) \3-\4-\5\7\8\9'
     for stolb in contacts_list[1:]:
         stolb[5] = phone_search.sub(phone_zamena, stolb[5])
+    # print(contacts_list)
     return
 
 def duble_search():
@@ -50,9 +55,10 @@ def duble_search():
                     stolb[5] = people[5]
                 if stolb[6] == '':
                     stolb[6] = people[6]
-
+    # print(contacts_list)
     for contact in contacts_list:
-        if contact not in new_list:
+        contact_end = contact[0:7]
+        if contact_end not in new_list:
             new_list.append(contact)
     return new_list
 
